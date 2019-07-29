@@ -19,15 +19,20 @@ public class ProductServiceImpl implements ProductService {
 
 
     /**
-     * Returns a list of all the available products
-     *
-     * @return a list of all the products
+     * {@inheritDoc}
      */
     @Override
     public List<Product> listAllProducts() {
         return new ArrayList<>(products.values());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Product getProductById(Integer id) {
+        return products.get(id);
+    }
 
     /**
      * Load the products into a HashMap
