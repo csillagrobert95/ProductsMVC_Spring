@@ -47,7 +47,7 @@ public class ProductController {
      * Add a new product
      *
      * @param model Model object to which the new product attribute is added
-     * @return Product page name
+     * @return Productform page name
      */
     @RequestMapping("/product/new")
     public String newProduct(Model model){
@@ -65,5 +65,18 @@ public class ProductController {
     public String saveOrUpdateProduct(Product product){
         Product savedProduct = productService.saveOrUpdateProduct(product);
         return "redirect:/product/" + savedProduct.getId();
+    }
+
+    /**
+     * Edit an existing product
+     *
+     * @param id Id of the product
+     * @param model Model object to which the product attribute is added
+     * @return Productform page name
+     */
+    @RequestMapping("product/edit/{id}")
+    public String editProduct(@PathVariable Integer id, Model model){
+        model.addAttribute("product", productService.getProductById(id));
+        return "productform";
     }
 }
