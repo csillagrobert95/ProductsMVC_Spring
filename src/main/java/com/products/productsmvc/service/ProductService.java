@@ -20,4 +20,12 @@ public interface ProductService {
      * @return The product object with the given id
      */
     Product getProductById(Integer id);
+
+    /**
+     * Save or update a product
+     *
+     * @param product The product that has to be saved or updated
+     * @return The saved product object
+     */
+    Product saveOrUpdateProduct(Product product);
 }

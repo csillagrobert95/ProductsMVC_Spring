@@ -1,11 +1,13 @@
 package com.products.productsmvc.controller;
 
+import com.products.productsmvc.domain.Product;
 import com.products.productsmvc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ProductController {
@@ -39,5 +41,29 @@ public class ProductController {
     public String getProduct(@PathVariable Integer id, Model model){
         model.addAttribute("product", productService.getProductById(id));
         return "product";
+    }
+
+    /**
+     * Add a new product
+     *
+     * @param model Model object to which the new product attribute is added
+     * @return Product page name
+     */
+    @RequestMapping("/product/new")
+    public String newProduct(Model model){
+        model.addAttribute("product", new Product());
+        return "productform";
+    }
+
+    /**
+     * Save or update a product
+     *
+     * @param product The product that has to be saved or updated
+     * @return Redirect to the product page of the saved product
+     */
+    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    public String saveOrUpdateProduct(Product product){
+        Product savedProduct = productService.saveOrUpdateProduct(product);
+        return "redirect:/product/" + savedProduct.getId();
     }
 }
