@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.*;
 
+/**
+ * This class implements the methods for handling product data.
+ */
 @Service
 public class ProductServiceImpl implements ProductService {
     private Map<Integer,Product> products;
@@ -58,7 +61,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * Load the products into a HashMap
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteProduct(Integer id) {
+        products.remove(id);
+    }
+
+    /**
+     * Load the products into a HashMap.
      */
     private void loadProducts(){
         products = new HashMap<>();

@@ -2,6 +2,9 @@ package com.products.productsmvc.domain;
 
 import java.math.BigDecimal;
 
+/**
+ * This class represents the product domain.
+ */
 public class Product {
     private Integer id;
     private String description;

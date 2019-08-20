@@ -9,20 +9,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * This class provides the controller methods for handling requests involving products.
+ */
 @Controller
 public class ProductController {
+    /** The product service which is used to handle product data.*/
     private ProductService productService;
 
+    /**
+     * Sets the productService to the productService parameter.
+     *
+     * @param productService The productService to set.
+     */
     @Autowired
     public void setProductService(ProductService productService) {
         this.productService = productService;
     }
 
     /**
-     * List all products
+     * List all products.
      *
-     * @param model Model object to which the products attribute is added
-     * @return products page name
+     * @param model Model object to which the products attribute is added.
+     * @return products page name.
      */
     @RequestMapping("/products")
     public String listProducts(Model model){
@@ -31,11 +40,11 @@ public class ProductController {
     }
 
     /**
-     * Get one product by id
+     * Get one product by id.
      *
-     * @param id Id of the product
-     * @param model Model object to which the products attribute is added
-     * @return Product page name
+     * @param id Id of the product.
+     * @param model Model object to which the products attribute is added.
+     * @return Product page name.
      */
     @RequestMapping("/product/{id}")
     public String getProduct(@PathVariable Integer id, Model model){
@@ -44,10 +53,10 @@ public class ProductController {
     }
 
     /**
-     * Add a new product
+     * Add a new product.
      *
-     * @param model Model object to which the new product attribute is added
-     * @return Productform page name
+     * @param model Model object to which the new product attribute is added.
+     * @return Productform page name.
      */
     @RequestMapping("/product/new")
     public String newProduct(Model model){
@@ -56,10 +65,10 @@ public class ProductController {
     }
 
     /**
-     * Save or update a product
+     * Save or update a product.
      *
-     * @param product The product that has to be saved or updated
-     * @return Redirect to the product page of the saved product
+     * @param product The product that has to be saved or updated.
+     * @return Redirect to the product page of the saved product.
      */
     @RequestMapping(value = "/product", method = RequestMethod.POST)
     public String saveOrUpdateProduct(Product product){
@@ -68,15 +77,27 @@ public class ProductController {
     }
 
     /**
-     * Edit an existing product
+     * Edit an existing product.
      *
-     * @param id Id of the product
-     * @param model Model object to which the product attribute is added
-     * @return Productform page name
+     * @param id Id of the product.
+     * @param model Model object to which the product attribute is added.
+     * @return Productform page name.
      */
     @RequestMapping("product/edit/{id}")
     public String editProduct(@PathVariable Integer id, Model model){
         model.addAttribute("product", productService.getProductById(id));
         return "productform";
+    }
+
+    /**
+     * Delete an existing product.
+     *
+     * @param id Id of the product.
+     * @return Redirect to the products page.
+     */
+    @RequestMapping("/product/delete/{id}")
+    public String delete(@PathVariable Integer id){
+        productService.deleteProduct(id);
+        return "redirect:/products";
     }
 }
