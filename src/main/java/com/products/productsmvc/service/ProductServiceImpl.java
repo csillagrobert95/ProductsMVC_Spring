@@ -11,12 +11,17 @@ import java.util.*;
  */
 @Service
 public class ProductServiceImpl implements ProductService {
+    /**
+     * The Map which stores the products.
+     */
     private Map<Integer,Product> products;
 
+    /**
+     * Public Constructor.
+     */
     public ProductServiceImpl() {
         loadProducts();
     }
-
 
     /**
      * {@inheritDoc}
