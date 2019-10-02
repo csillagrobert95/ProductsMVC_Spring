@@ -3,7 +3,7 @@ package com.products.productsmvc.domain;
 import java.math.BigDecimal;
 
 /**
- * This class represents the product domain.
+ * This class represents the product domain model.
  */
 public class Product {
     /** The id of the product.*/
