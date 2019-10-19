@@ -10,7 +10,6 @@ import java.util.List;
 public interface ProductService {
     /**
      * Returns a list of all the available products.
-     *
      * @return a list of all the products.
      */
     List<Product> listAllProducts();
@@ -18,7 +17,6 @@ public interface ProductService {
 
     /**
      * Returns the product with a given id.
-     *
      * @param id Id of product.
      * @return The product object with the given id.
      */
@@ -26,7 +24,6 @@ public interface ProductService {
 
     /**
      * Save or update a product.
-     *
      * @param product The product that has to be saved or updated.
      * @return The saved product object.
      */
@@ -34,7 +31,6 @@ public interface ProductService {
 
     /**
      * Delete a product.
-     *
      * @param id Id of product.
      */
     void deleteProduct(Integer id);
