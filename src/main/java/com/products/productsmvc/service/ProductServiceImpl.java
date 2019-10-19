@@ -49,7 +49,6 @@ public class ProductServiceImpl implements ProductService {
                 product.setId(getNextKey());
             }
             products.put(product.getId(), product);
-
             return product;
         } else {
             throw new RuntimeException("Product Can't be null");
