@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Customer</title>
+    <title>Customer Form</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
@@ -13,80 +13,74 @@
 </head>
 <body>
 <div class="container">
+    <h2>Customer Details</h2>
     <div class="row">
-        <div class="col-sm-6">
-            <h2>Show Customer</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <form>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Customer Id:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.id}">Customer Id</p>
-                    </div>
-                </div>
+        <div class="container">
+            <form th:object="${customer}" th:action="@{/customer}" method="post">
+                <input type="hidden" th:field="*{id}"/>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">First Name:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.firstName}">First Name</p>
+                        <input type="text" class="form-control" th:field="*{firstName}"/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Last Name:</label>
+                    <label class="col-sm-2 col-form-label">LastName:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.lastName}">Last Name</p>
+                        <input type="text" class="form-control" th:field="*{lastName}"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Email:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.email}">Email</p>
+                        <input type="text" class="form-control" th:field="*{email}"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Phone Number:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.phoneNumber}">Phone Number</p>
+                        <input type="text" class="form-control" th:field="*{phoneNumber}"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Address Line One:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.addressLineOne}">Address Line One</p>
+                        <input type="text" class="form-control" th:field="*{addressLineOne}"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Address Line Two:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.addressLineTwo}">Address Line Two</p>
+                        <input type="text" class="form-control" th:field="*{addressLineTwo}"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">City:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.city}">City</p>
+                        <input type="text" class="form-control" th:field="*{city}"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">State:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.state}">State</p>
+                        <input type="text" class="form-control" th:field="*{state}"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Zip Code:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-plaintext" th:text="${customer.zipCode}">Zip Code</p>
+                        <input type="text" class="form-control" th:field="*{zipCode}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="container">
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 </body>
 </html>
-<script>
-    $(document).prop('title', 'Customer ' + [[${customer.id}]]);
-</script>

@@ -1,11 +1,13 @@
 package com.products.productsmvc.controller;
 
+import com.products.productsmvc.domain.Customer;
 import com.products.productsmvc.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * This class provides the controller methods for handling requests involving customers.
@@ -47,5 +49,29 @@ public class CustomerController {
     public String getCustomer(@PathVariable Integer id, Model model){
         model.addAttribute("customer", customerService.getCustomerById(id));
         return "customer";
+    }
+
+    /**
+     * Add a new customer.
+     *
+     * @param model Model object to which the new customer attribute is added.
+     * @return Customerform page name.
+     */
+    @RequestMapping("/customer/new")
+    public String newCustomer(Model model){
+        model.addAttribute("customer", new Customer());
+        return "customerform";
+    }
+
+    /**
+     * Save or update a customer.
+     *
+     * @param customer The customer that has to be saved or updated.
+     * @return Redirect to the customer page of the saved product.
+     */
+    @RequestMapping(value = "/customer", method = RequestMethod.POST)
+    public String saveOrUpdateProduct(Customer customer){
+        Customer savedCustomer = customerService.saveOrUpdateCustomer(customer);
+        return "redirect:/customer/" + savedCustomer.getId();
     }
 }
