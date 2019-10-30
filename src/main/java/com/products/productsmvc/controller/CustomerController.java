@@ -74,4 +74,29 @@ public class CustomerController {
         Customer savedCustomer = customerService.saveOrUpdateCustomer(customer);
         return "redirect:/customer/" + savedCustomer.getId();
     }
+
+    /**
+     * Edit an existing customer.
+     *
+     * @param id Id of the customer.
+     * @param model Model object to which the customer attribute is added.
+     * @return Customerform page name.
+     */
+    @RequestMapping("customer/edit/{id}")
+    public String editCustomer(@PathVariable Integer id, Model model){
+        model.addAttribute("customer", customerService.getCustomerById(id));
+        return "customerform";
+    }
+
+    /**
+     * Delete an existing customer.
+     *
+     * @param id Id of the customer.
+     * @return Redirect to the customer page.
+     */
+    @RequestMapping("/customer/delete/{id}")
+    public String delete(@PathVariable Integer id){
+        customerService.deleteCustomer(id);
+        return "redirect:/customers";
+    }
 }
