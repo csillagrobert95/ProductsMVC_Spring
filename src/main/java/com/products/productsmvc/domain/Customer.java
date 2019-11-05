@@ -3,7 +3,7 @@ package com.products.productsmvc.domain;
 /**
  * This class represents the customer domain model.
  */
-public class Customer {
+public class Customer implements DomainObject{
     /** The id of the customer. */
     private Integer id;
 
@@ -38,6 +38,7 @@ public class Customer {
      * Returns the id of the customer as an Integer.
      * @return The id of the customer.
      */
+    @Override
     public Integer getId() {
         return id;
     }
@@ -46,6 +47,7 @@ public class Customer {
      * Sets the id of the customer to the value of the id parameter.
      * @param id The id to set.
      */
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

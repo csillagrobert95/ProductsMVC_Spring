@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * This class represents the product domain model.
  */
-public class Product {
+public class Product implements DomainObject{
     /** The id of the product.*/
     private Integer id;
 
@@ -22,6 +22,7 @@ public class Product {
      * Returns the id of the product as an Integer.
      * @return The id of the product.
      */
+    @Override
     public Integer getId() {
         return id;
     }
@@ -30,6 +31,7 @@ public class Product {
      * Sets the id of the product to the value of the id parameter.
      * @param id The id to set.
      */
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
