@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * This class provides the controller methods for handling requests involving customers.
  */
+@RequestMapping("/customer")
 @Controller
 public class CustomerController {
     /** The customer service which is used to handle customer data.*/
@@ -30,12 +31,12 @@ public class CustomerController {
      * List all customers.
      *
      * @param model Model object to which the customers attribute is added.
-     * @return customers page name.
+     * @return customers/list page name.
      */
-    @RequestMapping("/customers")
+    @RequestMapping({"/list", "/"})
     public String listCustomers(Model model){
-        model.addAttribute("customers", customerService.listAllCustomers());
-        return "customers";
+        model.addAttribute("customers", customerService.listAll());
+        return "customer/list";
     }
 
     /**
@@ -43,36 +44,36 @@ public class CustomerController {
      *
      * @param id Id of the customer.
      * @param model Model object to which the customers attribute is added.
-     * @return Customer page name.
+     * @return customer/show page name.
      */
-    @RequestMapping("/customer/{id}")
-    public String getCustomer(@PathVariable Integer id, Model model){
-        model.addAttribute("customer", customerService.getCustomerById(id));
-        return "customer";
+    @RequestMapping("/show/{id}")
+    public String showCustomer(@PathVariable Integer id, Model model){
+        model.addAttribute("customer", customerService.getById(id));
+        return "customer/show";
     }
 
     /**
      * Add a new customer.
      *
      * @param model Model object to which the new customer attribute is added.
-     * @return Customerform page name.
+     * @return customer/customerform page name.
      */
-    @RequestMapping("/customer/new")
+    @RequestMapping("/new")
     public String newCustomer(Model model){
         model.addAttribute("customer", new Customer());
-        return "customerform";
+        return "customer/customerform";
     }
 
     /**
      * Save or update a customer.
      *
      * @param customer The customer that has to be saved or updated.
-     * @return Redirect to the customer page of the saved product.
+     * @return Redirect to the customer/show page of the saved customer.
      */
-    @RequestMapping(value = "/customer", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String saveOrUpdateProduct(Customer customer){
-        Customer savedCustomer = customerService.saveOrUpdateCustomer(customer);
-        return "redirect:/customer/" + savedCustomer.getId();
+        Customer newCustomer = customerService.saveOrUpdate(customer);
+        return "redirect:customer/show/" + newCustomer.getId();
     }
 
     /**
@@ -80,23 +81,23 @@ public class CustomerController {
      *
      * @param id Id of the customer.
      * @param model Model object to which the customer attribute is added.
-     * @return Customerform page name.
+     * @return customer/customerform page name.
      */
-    @RequestMapping("customer/edit/{id}")
+    @RequestMapping("/edit/{id}")
     public String editCustomer(@PathVariable Integer id, Model model){
-        model.addAttribute("customer", customerService.getCustomerById(id));
-        return "customerform";
+        model.addAttribute("customer", customerService.getById(id));
+        return "customer/customerform";
     }
 
     /**
      * Delete an existing customer.
      *
      * @param id Id of the customer.
-     * @return Redirect to the customer page.
+     * @return Redirect to the customer/list page.
      */
-    @RequestMapping("/customer/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id){
-        customerService.deleteCustomer(id);
-        return "redirect:/customers";
+        customerService.delete(id);
+        return "redirect:/customer/list";
     }
 }

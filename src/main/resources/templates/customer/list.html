@@ -8,7 +8,7 @@
           rel="stylesheet" media="screen" />
     <script src="http://cdn.jsdelivr.net/webjars/jquery/3.4.1/jquery.min.js"
             th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-    <link href="../static/css/style.css"
+    <link href="../../static/css/style.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
@@ -42,7 +42,7 @@
                 <td th:text="${customer.city}"></td>
                 <td th:text="${customer.state}"></td>
                 <td th:text="${customer.zipCode}"></td>
-                <td><a th:href="${'/customer/' + customer.id}">View</a> </td>
+                <td><a th:href="${'/customer/show/' + customer.id}">View</a> </td>
                 <td><a th:href="${'/customer/edit/' + customer.id}">Edit</a> </td>
                 <td><a th:href="${'/customer/delete/' + customer.id}">Delete</a> </td>
             </tr>

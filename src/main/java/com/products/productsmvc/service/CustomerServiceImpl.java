@@ -1,6 +1,7 @@
 package com.products.productsmvc.service;
 
 import com.products.productsmvc.domain.Customer;
+import com.products.productsmvc.domain.DomainObject;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -9,110 +10,87 @@ import java.util.*;
  * This class implements the methods for handling product data.
  */
 @Service
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl extends AbstractMapService implements CustomerService {
     /**
-     * The Map which stores the products.
+     * Returns a list of all the available customers.
+     * @return a list of all the customers.
      */
-    private Map<Integer,Customer> customers;
-
-    /**
-     * Public Constructor.
-     */
-    public CustomerServiceImpl(){
-        loadCustomers();
+    @Override
+    public List<DomainObject> listAll() {
+        return super.listAll();
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the customer with a given id.
+     * @param id Id of customer.
+     * @return The customer object with the given id.
      */
     @Override
-    public List<Customer> listAllCustomers() {
-        return new ArrayList<>(customers.values());
+    public Customer getById(Integer id) {
+        return (Customer) super.getById(id);
     }
 
     /**
-     * {@inheritDoc}
+     * Save or update a customer.
+     * @param domainObject The customer that has to be saved or updated.
+     * @return The saved customer object.
      */
     @Override
-    public Customer getCustomerById(Integer id) {
-        return customers.get(id);
+    public Customer saveOrUpdate(Customer domainObject) {
+        return (Customer) super.saveOrUpdate(domainObject);
     }
 
     /**
-     * {@inheritDoc}
+     * Delete a customer.
+     * @param id Id of customer.
      */
     @Override
-    public Customer saveOrUpdateCustomer(Customer customer) {
-        if (customer != null){
-            if (customer.getId() == null){
-                customer.setId(getNextKey());
-            }
-            customers.put(customer.getId(), customer);
-            return customer;
-        } else {
-            throw new RuntimeException("Customer Can't be null");
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void deleteCustomer(Integer id) {
-        customers.remove(id);
+    public void delete(Integer id) {
+        super.delete(id);
     }
 
     /**
      * Load the customers into a HashMap.
      */
-    private void loadCustomers() {
-        customers = new HashMap<>();
+    @Override
+    protected void loadDomainObjects() {
+        domainMap = new HashMap<>();
 
         Customer customer1 = new Customer();
         customer1.setId(1);
-        customer1.setFirstName("Bill");
-        customer1.setLastName("Gates");
-        customer1.setEmail("bill.gates@microsoft.com");
-        customer1.setPhoneNumber("0743.999.567");
-        customer1.setAddressLineOne("Microsoft Ave.");
-        customer1.setAddressLineTwo("Nr. 1");
-        customer1.setCity("Los Angeles");
-        customer1.setState("California");
-        customer1.setZipCode("410001");
-        customers.put(1, customer1);
+        customer1.setFirstName("Micheal");
+        customer1.setLastName("Weston");
+        customer1.setAddressLineOne("1 Main St");
+        customer1.setCity("Miami");
+        customer1.setState("Florida");
+        customer1.setZipCode("33101");
+        customer1.setEmail("micheal@burnnotice.com");
+        customer1.setPhoneNumber("305.333.0101");
 
         Customer customer2 = new Customer();
         customer2.setId(2);
-        customer2.setFirstName("Jeff");
-        customer2.setLastName("Bezos");
-        customer2.setEmail("jeff.bezos@amazon.com");
-        customer2.setPhoneNumber("0743.999.568");
-        customer2.setAddressLineOne("Amazon Ave.");
-        customer2.setAddressLineTwo("Nr. 2");
-        customer2.setCity("Los Angeles");
-        customer2.setState("California");
-        customer2.setZipCode("410002");
-        customers.put(2, customer2);
+        customer2.setFirstName("Fiona");
+        customer2.setLastName("Glenanne");
+        customer2.setAddressLineOne("1 Key Biscane Ave");
+        customer2.setCity("Miami");
+        customer2.setState("Florida");
+        customer2.setZipCode("33101");
+        customer2.setEmail("fiona@burnnotice.com");
+        customer2.setPhoneNumber("305.323.0233");
 
         Customer customer3 = new Customer();
         customer3.setId(3);
-        customer3.setFirstName("Warren");
-        customer3.setLastName("Buffett");
-        customer3.setEmail("warren.buffett@berkshire.com");
-        customer3.setPhoneNumber("0743.999.569");
-        customer3.setAddressLineOne("berkshire Ave.");
-        customer3.setAddressLineTwo("Nr. 3");
-        customer3.setCity("Los Angeles");
-        customer3.setState("California");
-        customer3.setZipCode("410003");
-        customers.put(3, customer3);
-    }
+        customer3.setFirstName("Sam");
+        customer3.setLastName("Axe");
+        customer3.setAddressLineOne("1 Little Cuba Road");
+        customer3.setCity("Miami");
+        customer3.setState("Florida");
+        customer3.setZipCode("33101");
+        customer3.setEmail("sam@burnnotice.com");
+        customer3.setPhoneNumber("305.426.9832");
 
-    /**
-     * Calculates the next key in the keySet. Increments the last one by 1.
-     * @return The next key in the keySet
-     */
-    private Integer getNextKey(){
-        return Collections.max(customers.keySet()) + 1;
+        domainMap.put(1, customer1);
+        domainMap.put(2, customer2);
+        domainMap.put(3, customer3);
     }
 }

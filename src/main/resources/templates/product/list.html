@@ -8,7 +8,7 @@
           rel="stylesheet" media="screen" />
     <script src="http://cdn.jsdelivr.net/webjars/jquery/3.4.1/jquery.min.js"
             th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-    <link href="../static/css/style.css"
+    <link href="../../static/css/style.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
@@ -30,7 +30,7 @@
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.imageUrl}"></td>
-                <td><a th:href="${'/product/' + product.id}">View</a> </td>
+                <td><a th:href="${'/product/show/' + product.id}">View</a> </td>
                 <td><a th:href="${'/product/edit/' + product.id}">Edit</a> </td>
                 <td><a th:href="${'/product/delete/' + product.id}">Delete</a> </td>
             </tr>
