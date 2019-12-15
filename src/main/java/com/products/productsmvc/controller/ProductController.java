@@ -97,7 +97,7 @@ public class ProductController {
      * @return Redirect to the products page.
      */
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id){
+    public String deleteProduct(@PathVariable Integer id){
         productService.delete(id);
         return "redirect:/product/list";
     }
