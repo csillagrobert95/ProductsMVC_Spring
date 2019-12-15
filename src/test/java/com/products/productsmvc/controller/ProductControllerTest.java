@@ -21,40 +21,45 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Test the ProductController class.
  */
 public class ProductControllerTest {
-    /** ProductService Mock instance.*/
+    /**
+     * ProductService Mock instance.
+     */
     @Mock //Mockito Mock object
     private ProductService productService;
 
-    /** ProductController with injected mock objects.*/
+    /**
+     * ProductController with injected mock objects.
+     */
     @InjectMocks //Sets up controller, and injects mock objects into it.
     private ProductController productController;
 
-    /** The MockMvc instance. */
+    /**
+     * The MockMvc instance.
+     */
     private MockMvc mockMvc;
 
     /**
      * Sets up the required instances for testing.
      */
     @Before
-    public void setup(){
+    public void setup() {
         MockitoAnnotations.initMocks(this); //initializes controller and mocks
         mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
     }
 
     /**
      * Tests the listProducts method.
+     *
      * @throws Exception The exception which can be thrown.
      */
     @Test
-    public void testListProducts() throws Exception{
+    public void testListProducts() throws Exception {
         List<Product> products = new ArrayList<>();
         products.add(new Product());
         products.add(new Product());
@@ -70,10 +75,11 @@ public class ProductControllerTest {
 
     /**
      * Tests the showProduct method.
+     *
      * @throws Exception The exception which can be thrown.
      */
     @Test
-    public void testShowProduct() throws Exception{
+    public void testShowProduct() throws Exception {
         Integer id = 1;
 
         //Tell Mockito stub to return new product for ID 1
@@ -87,10 +93,11 @@ public class ProductControllerTest {
 
     /**
      * Tests the editProduct method.
+     *
      * @throws Exception The exception which can be thrown.
      */
     @Test
-    public void testEditProduct() throws Exception{
+    public void testEditProduct() throws Exception {
         Integer id = 1;
 
         //Tell Mockito stub to return new product for ID 1
@@ -104,6 +111,7 @@ public class ProductControllerTest {
 
     /**
      * Tests the newProduct method.
+     *
      * @throws Exception The exception which can be thrown.
      */
     @Test
@@ -119,6 +127,7 @@ public class ProductControllerTest {
 
     /**
      * Tests the saveOrUpdateProduct method.
+     *
      * @throws Exception The exception which can be thrown.
      */
     @Test
@@ -161,10 +170,11 @@ public class ProductControllerTest {
 
     /**
      * Tests the deleteProduct method.
+     *
      * @throws Exception The exception which can be thrown.
      */
     @Test
-    public void testDeleteProduct() throws Exception{
+    public void testDeleteProduct() throws Exception {
         Integer id = 1;
 
         mockMvc.perform(get("/product/delete/1"))
