@@ -134,7 +134,8 @@ public class CustomerControllerTest {
         Integer id = 1;
         String firstName = "Michael";
         String lastName = "Weston";
-        String addressLineOne = "1 Main st";
+        String addressLineOne = "Main st";
+        String addressLineTwo = "nr. 1";
         String city = "Miami";
         String state = "Florida";
         String zipCode = "33101";
@@ -158,7 +159,8 @@ public class CustomerControllerTest {
                 .param("id", "1")
                 .param("firstName", "Michael")
                 .param("lastName", "Weston")
-                .param("addressLineOne", "1 Main st")
+                .param("addressLineOne", "Main st")
+                .param("addressLineTwo", "nr. 1")
                 .param("city", "Miami")
                 .param("state", "Florida")
                 .param("zipCode", "33101")
@@ -171,6 +173,7 @@ public class CustomerControllerTest {
                 .andExpect(model().attribute("customer", hasProperty("firstName", is(firstName))))
                 .andExpect(model().attribute("customer", hasProperty("lastName", is(lastName))))
                 .andExpect(model().attribute("customer", hasProperty("addressLineOne", is(addressLineOne))))
+                .andExpect(model().attribute("customer", hasProperty("addressLineTwo", is(addressLineTwo))))
                 .andExpect(model().attribute("customer", hasProperty("city", is(city))))
                 .andExpect(model().attribute("customer", hasProperty("state", is(state))))
                 .andExpect(model().attribute("customer", hasProperty("zipCode", is(zipCode))))
@@ -185,6 +188,7 @@ public class CustomerControllerTest {
         assertEquals(firstName, boundCustomer.getValue().getFirstName());
         assertEquals(lastName, boundCustomer.getValue().getLastName());
         assertEquals(addressLineOne, boundCustomer.getValue().getAddressLineOne());
+        assertEquals(addressLineTwo, boundCustomer.getValue().getAddressLineTwo());
         assertEquals(city, boundCustomer.getValue().getCity());
         assertEquals(state, boundCustomer.getValue().getState());
         assertEquals(zipCode, boundCustomer.getValue().getZipCode());
