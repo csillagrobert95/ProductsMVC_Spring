@@ -23,4 +23,5 @@ These instructions will get you a copy of the project up and running on your loc
 * Thymeleaf
 * Bootstrap
 * JUnit 4
+* Mockito
 * Spring MVC Test
