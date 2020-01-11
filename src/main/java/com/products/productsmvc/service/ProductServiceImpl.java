@@ -2,6 +2,7 @@ package com.products.productsmvc.service;
 
 import com.products.productsmvc.domain.DomainObject;
 import com.products.productsmvc.domain.Product;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.util.*;
  * This class implements the methods for handling product data.
  */
 @Service
+@Profile("map")
 public class ProductServiceImpl extends AbstractMapService implements ProductService {
     /**
      * Returns a list of all the available products.

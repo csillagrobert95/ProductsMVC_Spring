@@ -76,7 +76,7 @@ public class Customer implements DomainObject{
     public void setVersion(Integer version) {
         this.version = version;
     }
-    
+
     /**
      * Returns the firstName of the customer as a String.
      * @return The firstName of the customer.
