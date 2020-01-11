@@ -1,13 +1,21 @@
 package com.products.productsmvc.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
  * This class represents the product domain model.
  */
+@Entity
 public class Product implements DomainObject{
     /** The id of the product.*/
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    /** The version used for persistence */
+    @Version
+    private Integer version;
 
     /** The description of the product.*/
     private String description;
@@ -34,6 +42,22 @@ public class Product implements DomainObject{
     @Override
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * Returns the version of the product as an Integer.
+     * @return The version of the product.
+     */
+    public Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the version of the product to the value of the version parameter.
+     * @param version The version to set.
+     */
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     /**

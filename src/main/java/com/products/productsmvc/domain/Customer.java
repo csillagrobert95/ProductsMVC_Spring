@@ -1,11 +1,20 @@
 package com.products.productsmvc.domain;
 
+import javax.persistence.*;
+
 /**
  * This class represents the customer domain model.
  */
+@Entity
 public class Customer implements DomainObject{
     /** The id of the customer. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    /** The version used for persistence */
+    @Version
+    private Integer version;
 
     /** The first name of the customer. */
     private String firstName;
@@ -52,6 +61,22 @@ public class Customer implements DomainObject{
         this.id = id;
     }
 
+    /**
+     * Returns the version of the product as an Integer.
+     * @return The version of the product.
+     */
+    public Integer getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the version of the product to the value of the version parameter.
+     * @param version The version to set.
+     */
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+    
     /**
      * Returns the firstName of the customer as a String.
      * @return The firstName of the customer.
