@@ -20,7 +20,6 @@ public abstract class AbstractMapService {
      */
     public AbstractMapService() {
         domainMap = new HashMap<>();
-        loadDomainObjects();
     }
 
     /**
@@ -72,11 +71,10 @@ public abstract class AbstractMapService {
      * @return The next key in the keySet
      */
     private Integer getNextKey(){
+        if(domainMap.size()==0){
+            return 1;
+        }
         return Collections.max(domainMap.keySet()) + 1;
     }
 
-    /**
-     * Load the domain objects into a HashMap.
-     */
-    protected abstract void loadDomainObjects();
 }

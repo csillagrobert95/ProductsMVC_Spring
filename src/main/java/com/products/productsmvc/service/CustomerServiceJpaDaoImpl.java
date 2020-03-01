@@ -14,7 +14,6 @@ import java.util.List;
  * It uses JPA to persist the data.
  */
 @Service
-
 @Profile("jpadao")
 public class CustomerServiceJpaDaoImpl implements CustomerService{
     /**
