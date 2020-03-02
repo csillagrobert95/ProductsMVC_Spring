@@ -45,9 +45,6 @@ public class ProductServiceJpaDaoImplTest {
         List<Product> products = (List<Product>)productService.listAll();
 
         assertEquals(5, products.size());
-        for (int i = 0 ; i < products.size(); i++){
-            assertEquals(i+1, products.get(i).getId().intValue());
-        }
     }
 
     /**
@@ -75,7 +72,6 @@ public class ProductServiceJpaDaoImplTest {
 
         Product savedProduct = productService.saveOrUpdate(product);
         assertNotNull(savedProduct);
-        assertEquals(6 , savedProduct.getId().intValue());
         assertEquals(product.getDescription(), savedProduct.getDescription());
         assertEquals(product.getImageUrl(), savedProduct.getImageUrl());
         assertEquals(product.getPrice(), savedProduct.getPrice());
@@ -89,7 +85,7 @@ public class ProductServiceJpaDaoImplTest {
     public void testDelete() throws Exception{
         List<Product> products = (List<Product>)productService.listAll();
 
-        productService.delete(1);
+        productService.delete(products.get(0).getId());
 
         List<Product> productsAfterDel = (List<Product>)productService.listAll();
 

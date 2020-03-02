@@ -94,7 +94,6 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
      */
     public void loadCustomers(){
         Customer customer1 = new Customer();
-        customer1.setId(1);
         customer1.setFirstName("Micheal");
         customer1.setLastName("Weston");
         customer1.setAddressLineOne("1 Main St");
@@ -106,7 +105,6 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
         customerService.saveOrUpdate(customer1);
 
         Customer customer2 = new Customer();
-        customer2.setId(2);
         customer2.setFirstName("Fiona");
         customer2.setLastName("Glenanne");
         customer2.setAddressLineOne("1 Key Biscane Ave");
@@ -118,7 +116,6 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
         customerService.saveOrUpdate(customer2);
 
         Customer customer3 = new Customer();
-        customer3.setId(3);
         customer3.setFirstName("Sam");
         customer3.setLastName("Axe");
         customer3.setAddressLineOne("1 Little Cuba Road");
