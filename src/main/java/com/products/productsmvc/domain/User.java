@@ -1,7 +1,5 @@
 package com.products.productsmvc.domain;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
 /**

@@ -1,4 +1,4 @@
-package com.products.productsmvc.service;
+package com.products.productsmvc.service.map;
 
 import com.products.productsmvc.domain.DomainObject;
 
@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * This abstract class provides the methods for handling domain object data.
  */
-public abstract class AbstractMapService {
+public abstract class MapService {
 
     /**
      * The map to store domain objects.
@@ -18,7 +18,7 @@ public abstract class AbstractMapService {
     /**
      * Public Constructor.
      */
-    public AbstractMapService() {
+    public MapService() {
         domainMap = new HashMap<>();
     }
 

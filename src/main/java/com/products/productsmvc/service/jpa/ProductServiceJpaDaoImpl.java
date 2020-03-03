@@ -1,12 +1,11 @@
-package com.products.productsmvc.service;
+package com.products.productsmvc.service.jpa;
 
 import com.products.productsmvc.domain.Product;
+import com.products.productsmvc.service.ProductService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 /**
@@ -15,22 +14,7 @@ import java.util.List;
  */
 @Service
 @Profile("jpadao")
-public class ProductServiceJpaDaoImpl implements ProductService {
-
-    /**
-     * The EntityManagerFactory for creating EntityManager objects.
-     */
-    private EntityManagerFactory emf;
-
-    /**
-     * Sets the emf of the ProductService to the value of the emf parameter.
-     * @param emf The EntityManagerFactory.
-     */
-    @PersistenceUnit
-    public void setEmf(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
+public class ProductServiceJpaDaoImpl extends JpaDaoService implements ProductService {
     /**
      * Returns a list of all the available products.
      * @return a list of all the products.

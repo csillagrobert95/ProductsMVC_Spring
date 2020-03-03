@@ -1,11 +1,11 @@
-package com.products.productsmvc.service;
+package com.products.productsmvc.service.map;
 
 import com.products.productsmvc.domain.DomainObject;
 import com.products.productsmvc.domain.Product;
+import com.products.productsmvc.service.ProductService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -13,7 +13,7 @@ import java.util.*;
  */
 @Service
 @Profile("map")
-public class ProductServiceImpl extends AbstractMapService implements ProductService {
+public class ProductServiceImpl extends MapService implements ProductService {
     /**
      * Returns a list of all the available products.
      * @return a list of all the products.
