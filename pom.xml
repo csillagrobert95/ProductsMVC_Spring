@@ -51,6 +51,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--encryption lib-->
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+
         <!--Webjars-->
         <dependency>
             <groupId>org.webjars</groupId>
