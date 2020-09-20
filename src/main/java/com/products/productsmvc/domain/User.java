@@ -33,6 +33,10 @@ public class User implements DomainObject {
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Customer customer;
 
+    /** The cart linked to the user*/
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cart cart;
+
     /**
      * Returns the id of the user as an Integer.
      * @return The id of the user.
@@ -146,5 +150,21 @@ public class User implements DomainObject {
     public void setCustomer(Customer customer) {
         this.customer = customer;
         customer.setUser(this);
+    }
+
+    /**
+     * Returns the cart associated with the user as a Cart.
+     * @return The cart associated with the user.
+     */
+    public Cart getCart() {
+        return cart;
+    }
+
+    /**
+     * Sets the cart associated with the user to the value of the cart parameter.
+     * @param cart The cart to set.
+     */
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

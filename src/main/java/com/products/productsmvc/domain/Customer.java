@@ -43,7 +43,7 @@ public class Customer implements DomainObject{
     /** The customer's zip code. */
     private String zipCode;
 
-    /** The user instance linked to the customer. */
+    /** The user entity linked to the customer. */
     @OneToOne
     private User user;
 
