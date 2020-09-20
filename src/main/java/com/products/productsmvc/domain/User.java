@@ -29,6 +29,10 @@ public class User implements DomainObject {
     /** Enabled flag for user.*/
     private Boolean enabled = true;
 
+    /** The customer linked to the user*/
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Customer customer;
+
     /**
      * Returns the id of the user as an Integer.
      * @return The id of the user.
@@ -125,5 +129,22 @@ public class User implements DomainObject {
      */
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    /**
+     * Returns the customer associated with the user as a Customer.
+     * @return The customer associated with the user.
+     */
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    /**
+     * Sets the customer associated with the user to the value of the customer parameter.
+     * @param customer The customer to set.
+     */
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        customer.setUser(this);
     }
 }

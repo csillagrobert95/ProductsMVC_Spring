@@ -44,7 +44,7 @@ public class Customer implements DomainObject{
     private String zipCode;
 
     /** The user instance linked to the customer. */
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne
     private User user;
 
     /**
