@@ -43,6 +43,10 @@ public class Customer implements DomainObject{
     /** The customer's zip code. */
     private String zipCode;
 
+    /** The user instance linked to the customer. */
+    @OneToOne(cascade = {CascadeType.ALL})
+    private User user;
+
     /**
      * Returns the id of the customer as an Integer.
      * @return The id of the customer.
@@ -221,6 +225,22 @@ public class Customer implements DomainObject{
         this.zipCode = zipCode;
     }
 
+    /**
+     * Returns the user of the customer as a User.
+     * @return The user of the customer.
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Sets the user of the customer to the value of the user parameter.
+     * @param user The User to set.
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -235,6 +255,7 @@ public class Customer implements DomainObject{
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", zipCode='" + zipCode + '\'' +
+                ", user=" + user +
                 '}';
     }
 }

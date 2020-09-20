@@ -1,6 +1,7 @@
 package com.products.productsmvc.service;
 
 import com.products.productsmvc.domain.Customer;
+import com.products.productsmvc.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,24 @@ public class CustomerServiceJpaDaoImplTest {
         assertEquals(customer.getZipCode(), savedCustomer.getZipCode());
         assertEquals(customer.getEmail(), savedCustomer.getEmail());
         assertEquals(customer.getPhoneNumber(), savedCustomer.getPhoneNumber());
+    }
+
+    /**
+     * Test the saveOrUpdate method when a user account is linked to the customer.
+     * @throws Exception The thrown exception.
+     */
+    @Test
+    public void testSaveWithUser() {
+
+        Customer customer = new Customer();
+        User user = new User();
+        user.setUsername("MyUsername");
+        user.setPassword("MyAwesomePassword");
+        customer.setUser(user);
+
+        Customer savedCustomer = customerService.saveOrUpdate(customer);
+
+        assertNotNull(savedCustomer.getUser().getId());
     }
 
     /**

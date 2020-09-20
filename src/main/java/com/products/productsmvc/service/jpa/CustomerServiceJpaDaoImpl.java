@@ -2,6 +2,8 @@ package com.products.productsmvc.service.jpa;
 
 import com.products.productsmvc.domain.Customer;
 import com.products.productsmvc.service.CustomerService;
+import com.products.productsmvc.service.security.EncryptionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,20 @@ import java.util.List;
 @Service
 @Profile("jpadao")
 public class CustomerServiceJpaDaoImpl extends JpaDaoService implements CustomerService {
+    /**
+     * Encryption service.
+     */
+    private EncryptionService encryptionService;
+
+    /**
+     * Sets the encryptionService the value of the encryptionService parameter.
+     * @param encryptionService The EncryptionService to set.
+     */
+    @Autowired
+    public void setEncryptionService(EncryptionService encryptionService) {
+        this.encryptionService = encryptionService;
+    }
+
     /**
      * Returns a list of all the available customers.
      * @return a list of all the customers.
@@ -44,10 +60,17 @@ public class CustomerServiceJpaDaoImpl extends JpaDaoService implements Customer
     @Override
     public Customer saveOrUpdate(Customer domainObject) {
         EntityManager em = emf.createEntityManager();
+
         em.getTransaction().begin();
+
+        if (domainObject.getUser() != null && domainObject.getUser().getPassword() != null) {
+            domainObject.getUser().setEncryptedPassword(
+                    encryptionService.encryptString(domainObject.getUser().getPassword()));
+        }
+
         Customer savedCustomer = em.merge(domainObject);
         em.getTransaction().commit();
-        em.close();
+
         return savedCustomer;
     }
 
