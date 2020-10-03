@@ -1,5 +1,6 @@
 package com.products.productsmvc.controller;
 
+import com.products.productsmvc.domain.Address;
 import com.products.productsmvc.domain.Customer;
 import com.products.productsmvc.service.CustomerService;
 import org.junit.Before;
@@ -132,24 +133,26 @@ public class CustomerControllerTest {
     @Test
     public void testSaveOrUpdateCustomer() throws Exception {
         Integer id = 1;
-        String firstName = "Michael";
+        Customer returnCustomer = new Customer();
+        String firstName = "Micheal";
         String lastName = "Weston";
-        String addressLineOne = "Main st";
-        String addressLineTwo = "nr. 1";
+        String addressLine1 = "1 Main St";
+        String addressLine2 = "Apt 301";
         String city = "Miami";
         String state = "Florida";
         String zipCode = "33101";
         String email = "micheal@burnnotice.com";
         String phoneNumber = "305.333.0101";
 
-        Customer returnCustomer = new Customer();
         returnCustomer.setId(id);
         returnCustomer.setFirstName(firstName);
         returnCustomer.setLastName(lastName);
-        returnCustomer.setAddressLineOne(addressLineOne);
-        returnCustomer.setCity(city);
-        returnCustomer.setState(state);
-        returnCustomer.setZipCode(zipCode);
+        returnCustomer.setBillingAddress(new Address());
+        returnCustomer.getBillingAddress().setAddressLine1(addressLine1);
+        returnCustomer.getBillingAddress().setAddressLine2(addressLine2);
+        returnCustomer.getBillingAddress().setCity(city);
+        returnCustomer.getBillingAddress().setState(state);
+        returnCustomer.getBillingAddress().setZipCode(zipCode);
         returnCustomer.setEmail(email);
         returnCustomer.setPhoneNumber(phoneNumber);
 
@@ -157,43 +160,43 @@ public class CustomerControllerTest {
 
         mockMvc.perform(post("/customer")
                 .param("id", "1")
-                .param("firstName", "Michael")
-                .param("lastName", "Weston")
-                .param("addressLineOne", "Main st")
-                .param("addressLineTwo", "nr. 1")
-                .param("city", "Miami")
-                .param("state", "Florida")
-                .param("zipCode", "33101")
-                .param("email", "micheal@burnnotice.com")
-                .param("phoneNumber", "305.333.0101"))
+                .param("firstName", firstName)
+                .param("lastName", lastName)
+                .param("shippingAddress.addressLine1", addressLine1)
+                .param("shippingAddress.addressLine2", addressLine2)
+                .param("shippingAddress.city", city)
+                .param("shippingAddress.state", state)
+                .param("shippingAddress.zipCode", zipCode)
+                .param("email", email)
+                .param("phoneNumber", phoneNumber))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:customer/show/1"))
                 .andExpect(model().attribute("customer", instanceOf(Customer.class)))
-                .andExpect(model().attribute("customer", hasProperty("id", is(id))))
                 .andExpect(model().attribute("customer", hasProperty("firstName", is(firstName))))
                 .andExpect(model().attribute("customer", hasProperty("lastName", is(lastName))))
-                .andExpect(model().attribute("customer", hasProperty("addressLineOne", is(addressLineOne))))
-                .andExpect(model().attribute("customer", hasProperty("addressLineTwo", is(addressLineTwo))))
-                .andExpect(model().attribute("customer", hasProperty("city", is(city))))
-                .andExpect(model().attribute("customer", hasProperty("state", is(state))))
-                .andExpect(model().attribute("customer", hasProperty("zipCode", is(zipCode))))
+                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("addressLine1", is(addressLine1)))))
+                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("addressLine2", is(addressLine2)))))
+                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("city", is(city)))))
+                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("state", is(state)))))
+                .andExpect(model().attribute("customer", hasProperty("shippingAddress", hasProperty("zipCode", is(zipCode)))))
                 .andExpect(model().attribute("customer", hasProperty("email", is(email))))
                 .andExpect(model().attribute("customer", hasProperty("phoneNumber", is(phoneNumber))));
 
-        //verify properties of bound object
-        ArgumentCaptor<Customer> boundCustomer = ArgumentCaptor.forClass(Customer.class);
-        verify(customerService).saveOrUpdate(boundCustomer.capture());
+        ArgumentCaptor<Customer> customerCaptor = ArgumentCaptor.forClass(Customer.class);
+        verify(customerService).saveOrUpdate(customerCaptor.capture());
 
-        assertEquals(id, boundCustomer.getValue().getId());
-        assertEquals(firstName, boundCustomer.getValue().getFirstName());
-        assertEquals(lastName, boundCustomer.getValue().getLastName());
-        assertEquals(addressLineOne, boundCustomer.getValue().getAddressLineOne());
-        assertEquals(addressLineTwo, boundCustomer.getValue().getAddressLineTwo());
-        assertEquals(city, boundCustomer.getValue().getCity());
-        assertEquals(state, boundCustomer.getValue().getState());
-        assertEquals(zipCode, boundCustomer.getValue().getZipCode());
-        assertEquals(email, boundCustomer.getValue().getEmail());
-        assertEquals(phoneNumber, boundCustomer.getValue().getPhoneNumber());
+        Customer boundCustomer = customerCaptor.getValue();
+
+        assertEquals(id, boundCustomer.getId());
+        assertEquals(firstName, boundCustomer.getFirstName());
+        assertEquals(lastName, boundCustomer.getLastName());
+        assertEquals(addressLine1, boundCustomer.getShippingAddress().getAddressLine1());
+        assertEquals(addressLine2, boundCustomer.getShippingAddress().getAddressLine2());
+        assertEquals(city, boundCustomer.getShippingAddress().getCity());
+        assertEquals(state, boundCustomer.getShippingAddress().getState());
+        assertEquals(zipCode, boundCustomer.getShippingAddress().getZipCode());
+        assertEquals(email, boundCustomer.getEmail());
+        assertEquals(phoneNumber, boundCustomer.getPhoneNumber());
     }
 
     /**

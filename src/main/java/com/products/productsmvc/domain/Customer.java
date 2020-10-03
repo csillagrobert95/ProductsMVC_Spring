@@ -28,23 +28,16 @@ public class Customer implements DomainObject{
     /** The phone number of the customer. */
     private String phoneNumber;
 
-    /** The first line of the customer's address. */
-    private String addressLineOne;
+    /** The billing address of the customer. */
+    @Embedded
+    private Address billingAddress;
 
-    /** The second line of the customer's address. */
-    private String addressLineTwo;
-
-    /** The customer's city. */
-    private String city;
-
-    /** The customer's state. */
-    private String state;
-
-    /** The customer's zip code. */
-    private String zipCode;
+    /** The shipping address of the customer. */
+    @Embedded
+    private Address shippingAddress;
 
     /** The user entity linked to the customer. */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private User user;
 
     /**
@@ -146,83 +139,35 @@ public class Customer implements DomainObject{
     }
 
     /**
-     * Returns the addressLineOne of the customer as a String.
-     * @return The addressLineOne of the customer.
+     * Returns the billingAddress of the customer as an Address.
+     * @return The billingAddress of the customer.
      */
-    public String getAddressLineOne() {
-        return addressLineOne;
+    public Address getBillingAddress() {
+        return billingAddress;
     }
 
     /**
-     * Sets the addressLineOne of the customer to the value of the addressLineOne parameter.
-     * @param addressLineOne The addressLineOne to set.
+     * Sets the billingAddress of the customer to the value of the billingAddress parameter.
+     * @param billingAddress The billingAddress to set.
      */
-    public void setAddressLineOne(String addressLineOne) {
-        this.addressLineOne = addressLineOne;
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
     /**
-     * Returns the addressLineTwo of the customer as a String.
-     * @return The addressLineTwo of the customer.
+     * Returns the shippingAddress of the customer as an Address.
+     * @return The shippingAddress of the customer.
      */
-    public String getAddressLineTwo() {
-        return addressLineTwo;
+    public Address getShippingAddress() {
+        return shippingAddress;
     }
 
     /**
-     * Sets the addressLineTwo of the customer to the value of the addressLineTwo parameter.
-     * @param addressLineTwo The addressLineTwo to set.
+     * Sets the shippingAddress of the customer to the value of the shippingAddress parameter.
+     * @param shippingAddress The shippingAddress to set.
      */
-    public void setAddressLineTwo(String addressLineTwo) {
-        this.addressLineTwo = addressLineTwo;
-    }
-
-    /**
-     * Returns the city of the customer as a String.
-     * @return The city of the customer.
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * Sets the city of the customer to the value of the city parameter.
-     * @param city The city to set.
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
-     * Returns the state of the customer as a String.
-     * @return The state of the customer.
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * Sets the state of the customer to the value of the state parameter.
-     * @param state The state to set.
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
-     * Returns the zipCode of the customer as a String.
-     * @return The zipCode of the customer.
-     */
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    /**
-     * Sets the zipCode of the customer to the value of the zipCode parameter.
-     * @param zipCode The zipCode to set.
-     */
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
     /**
@@ -241,21 +186,4 @@ public class Customer implements DomainObject{
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", version=" + version +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", addressLineOne='" + addressLineOne + '\'' +
-                ", addressLineTwo='" + addressLineTwo + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", user=" + user +
-                '}';
-    }
 }

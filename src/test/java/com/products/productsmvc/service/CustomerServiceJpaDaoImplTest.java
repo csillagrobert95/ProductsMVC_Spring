@@ -1,5 +1,6 @@
 package com.products.productsmvc.service;
 
+import com.products.productsmvc.domain.Address;
 import com.products.productsmvc.domain.Customer;
 import com.products.productsmvc.domain.User;
 import org.junit.Test;
@@ -67,10 +68,11 @@ public class CustomerServiceJpaDaoImplTest {
         Customer customer = new Customer();
         customer.setFirstName("Micheal");
         customer.setLastName("Weston");
-        customer.setAddressLineOne("1 Main St");
-        customer.setCity("Miami");
-        customer.setState("Florida");
-        customer.setZipCode("33101");
+        customer.setBillingAddress(new Address());
+        customer.getBillingAddress().setAddressLine1("1 Main St");
+        customer.getBillingAddress().setCity("Miami");
+        customer.getBillingAddress().setState("Florida");
+        customer.getBillingAddress().setZipCode("33101");
         customer.setEmail("micheal@burnnotice.com");
         customer.setPhoneNumber("305.333.0101");
 
@@ -78,10 +80,10 @@ public class CustomerServiceJpaDaoImplTest {
         assertNotNull(savedCustomer);
         assertEquals(customer.getFirstName(), savedCustomer.getFirstName());
         assertEquals(customer.getLastName(), savedCustomer.getLastName());
-        assertEquals(customer.getAddressLineOne(), savedCustomer.getAddressLineOne());
-        assertEquals(customer.getCity(), savedCustomer.getCity());
-        assertEquals(customer.getState(), savedCustomer.getState());
-        assertEquals(customer.getZipCode(), savedCustomer.getZipCode());
+        assertEquals(customer.getBillingAddress().getAddressLine1(), savedCustomer.getBillingAddress().getAddressLine1());
+        assertEquals(customer.getBillingAddress().getCity(), savedCustomer.getBillingAddress().getCity());
+        assertEquals(customer.getBillingAddress().getState(), savedCustomer.getBillingAddress().getState());
+        assertEquals(customer.getBillingAddress().getZipCode(), savedCustomer.getBillingAddress().getZipCode());
         assertEquals(customer.getEmail(), savedCustomer.getEmail());
         assertEquals(customer.getPhoneNumber(), savedCustomer.getPhoneNumber());
     }
@@ -104,18 +106,4 @@ public class CustomerServiceJpaDaoImplTest {
         assertNotNull(savedCustomer.getUser().getId());
     }
 
-    /**
-     * Test the delete method.
-     * @throws Exception The thrown exception.
-     */
-    @Test
-    public void testDelete() throws Exception{
-        List<Customer> customers = (List<Customer>)customerService.listAll();
-
-        customerService.delete(customers.get(0).getId());
-
-        List<Customer> customersAfterDel = (List<Customer>)customerService.listAll();
-
-        assertEquals(customers.size() - 1, customersAfterDel.size());
-    }
 }

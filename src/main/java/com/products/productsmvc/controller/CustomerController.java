@@ -71,7 +71,7 @@ public class CustomerController {
      * @return Redirect to the customer/show page of the saved customer.
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String saveOrUpdateProduct(Customer customer){
+    public String saveOrUpdateCustomer(Customer customer){
         Customer newCustomer = customerService.saveOrUpdate(customer);
         return "redirect:customer/show/" + newCustomer.getId();
     }
