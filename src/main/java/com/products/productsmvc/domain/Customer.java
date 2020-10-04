@@ -6,16 +6,7 @@ import javax.persistence.*;
  * This class represents the customer domain model.
  */
 @Entity
-public class Customer implements DomainObject{
-    /** The id of the customer. */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    /** The version used for persistence */
-    @Version
-    private Integer version;
-
+public class Customer extends AbstractDomainClass{
     /** The first name of the customer. */
     private String firstName;
 
@@ -39,40 +30,6 @@ public class Customer implements DomainObject{
     /** The user entity linked to the customer. */
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private User user;
-
-    /**
-     * Returns the id of the customer as an Integer.
-     * @return The id of the customer.
-     */
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id of the customer to the value of the id parameter.
-     * @param id The id to set.
-     */
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * Returns the version of the product as an Integer.
-     * @return The version of the product.
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version of the product to the value of the version parameter.
-     * @param version The version to set.
-     */
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     /**
      * Returns the firstName of the customer as a String.

@@ -6,16 +6,7 @@ import javax.persistence.*;
  * This class represents the user domain model.
  */
 @Entity
-public class User implements DomainObject {
-    /** The id of the user.*/
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    /** The version used for persistence */
-    @Version
-    private Integer version;
-
+public class User extends AbstractDomainClass {
     /** The username.*/
     private String username;
 
@@ -36,40 +27,6 @@ public class User implements DomainObject {
     /** The cart linked to the user*/
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
-
-    /**
-     * Returns the id of the user as an Integer.
-     * @return The id of the user.
-     */
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id of the user to the value of the id parameter.
-     * @param id The id to set.
-     */
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * Returns the version of the user as an Integer.
-     * @return The version of the user.
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version of the user to the value of the version parameter.
-     * @param version The version to set.
-     */
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     /**
      * Returns the username of the user as a String.

@@ -8,16 +8,7 @@ import java.util.List;
  * This class represents the cart domain model.
  */
 @Entity
-public class Cart implements DomainObject {
-    /** The id of the cart. */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    /** The version of the cart. */
-    @Version
-    private Integer version;
-
+public class Cart extends AbstractDomainClass {
     /** The user linked to the cart. */
     @OneToOne
     private User user;
@@ -25,40 +16,6 @@ public class Cart implements DomainObject {
     /** The list of cart details. */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart", orphanRemoval = true)
     private List<CartDetail> cartDetails = new ArrayList<>();
-
-    /**
-     * Returns the id of the cart as an Integer.
-     * @return The id of the cart.
-     */
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id of the cart to the value of the id parameter.
-     * @param id The id to set.
-     */
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * Returns the version of the cart as an Integer.
-     * @return The version of the cart.
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version of the cart to the value of the version parameter.
-     * @param version The version to set.
-     */
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     /**
      * Returns the user linked to the cart as a User.

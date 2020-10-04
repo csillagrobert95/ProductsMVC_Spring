@@ -7,16 +7,7 @@ import java.math.BigDecimal;
  * This class represents the product domain model.
  */
 @Entity
-public class Product implements DomainObject{
-    /** The id of the product.*/
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    /** The version used for persistence */
-    @Version
-    private Integer version;
-
+public class Product extends AbstractDomainClass{
     /** The description of the product.*/
     private String description;
 
@@ -25,40 +16,6 @@ public class Product implements DomainObject{
 
     /** The URL of the product image.*/
     private String imageUrl;
-
-    /**
-     * Returns the id of the product as an Integer.
-     * @return The id of the product.
-     */
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id of the product to the value of the id parameter.
-     * @param id The id to set.
-     */
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * Returns the version of the product as an Integer.
-     * @return The version of the product.
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version of the product to the value of the version parameter.
-     * @param version The version to set.
-     */
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     /**
      * Returns the description of the product as a String.
@@ -112,7 +69,6 @@ public class Product implements DomainObject{
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", version=" + version +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", imageUrl='" + imageUrl + '\'' +
