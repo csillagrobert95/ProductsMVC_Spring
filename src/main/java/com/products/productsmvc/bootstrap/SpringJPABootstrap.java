@@ -1,9 +1,11 @@
 package com.products.productsmvc.bootstrap;
 
 import com.products.productsmvc.domain.*;
+import com.products.productsmvc.domain.security.Role;
 import com.products.productsmvc.enums.OrderStatus;
 import com.products.productsmvc.service.CustomerService;
 import com.products.productsmvc.service.ProductService;
+import com.products.productsmvc.service.RoleService;
 import com.products.productsmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -29,6 +31,11 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     private UserService userService;
 
     /**
+     * The RoleService.
+     */
+    private RoleService roleService;
+
+    /**
      * Sets the productService to the value of the productService parameter.
      * @param productService The productService to set.
      */
@@ -47,6 +54,15 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     }
 
     /**
+     * Sets the roleService to the value of the roleService parameter.
+     * @param roleService The roleService to set.
+     */
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
+    /**
      * Method which gets executed when the ApplicationContext is refreshed.
      * @param contextRefreshedEvent The contextRefreshedEvent.
      */
@@ -56,8 +72,36 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
         loadUsersAndCustomers();
         loadCarts();
         loadOrderHistory();
-
+        loadRoles();
+        assignUsersToDefaultRole();
     }
+
+    /**
+     * Assign initial roles to all users.
+     */
+    private void assignUsersToDefaultRole() {
+        List<Role> roles = (List<Role>) roleService.listAll();
+        List<User> users = (List<User>) userService.listAll();
+
+        roles.forEach(role ->{
+            if(role.getRole().equalsIgnoreCase("CUSTOMER")){
+                users.forEach(user -> {
+                    user.addRole(role);
+                    userService.saveOrUpdate(user);
+                });
+            }
+        });
+    }
+
+    /**
+     * Loads initial roles.
+     */
+    private void loadRoles() {
+        Role role = new Role();
+        role.setRole("CUSTOMER");
+        roleService.saveOrUpdate(role);
+    }
+
 
     /**
      * Loads initial order history for each user.
