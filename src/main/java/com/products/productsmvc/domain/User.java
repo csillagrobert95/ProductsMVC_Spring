@@ -1,6 +1,10 @@
 package com.products.productsmvc.domain;
 
+import com.products.productsmvc.domain.security.Role;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the user domain model.
@@ -27,6 +31,13 @@ public class User extends AbstractDomainClass {
     /** The cart linked to the user*/
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
+
+    /** The list of roles granted to the user*/
+    @ManyToMany
+    @JoinTable
+    // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id"),
+    //     inverseJoinColumns = @joinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
     /**
      * Returns the username of the user as a String.
@@ -123,5 +134,44 @@ public class User extends AbstractDomainClass {
      */
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    /**
+     * Returns the list of roles granted to the user.
+     * @return The list of roles granted to the user.
+     */
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    /**
+     * Sets the list of roles to the value of the roles parameter.
+     * @param roles The list of roles to set.
+     */
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    /**
+     * Add a role to the list of roles granted to the user.
+     * @param role The role to add.
+     */
+    public void addRole(Role role){
+        if(!this.roles.contains(role)){
+            this.roles.add(role);
+        }
+
+        if(!role.getUsers().contains(this)){
+            role.getUsers().add(this);
+        }
+    }
+
+    /**
+     * Remove a role from the list of roles granted to the user.
+     * @param role The role to remove.
+     */
+    public void removeRole(Role role){
+        this.roles.remove(role);
+        role.getUsers().remove(this);
     }
 }
