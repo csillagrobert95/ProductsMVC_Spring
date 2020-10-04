@@ -24,6 +24,9 @@ public class CartDetail implements DomainObject {
     @OneToOne
     private Product product;
 
+    /** The quantity of the cartDetail. */
+    private Integer quantity;
+
     /**
      * Returns the id of the cartDetail as an Integer.
      * @return The id of the cartDetail.
@@ -88,5 +91,21 @@ public class CartDetail implements DomainObject {
      */
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    /**
+     * Returns the quantity of the cartDetail as an Integer.
+     * @return The product of the cartDetail.
+     */
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * Sets the quantity of the cartDetail to the value of the quantity parameter.
+     * @param quantity The quantity to set.
+     */
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
