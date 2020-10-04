@@ -1,9 +1,7 @@
 package com.products.productsmvc.bootstrap;
 
-import com.products.productsmvc.domain.Address;
-import com.products.productsmvc.domain.Customer;
-import com.products.productsmvc.domain.Product;
-import com.products.productsmvc.domain.User;
+import com.products.productsmvc.domain.*;
+import com.products.productsmvc.enums.OrderStatus;
 import com.products.productsmvc.service.CustomerService;
 import com.products.productsmvc.service.ProductService;
 import com.products.productsmvc.service.UserService;
@@ -13,6 +11,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * This class is responsible for populating the DB with initial mock data.
@@ -55,6 +54,41 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         loadProducts();
         loadUsersAndCustomers();
+        loadCarts();
+        loadOrderHistory();
+
+    }
+
+    private void loadOrderHistory() {
+        List<User> users = (List<User>) userService.listAll();
+        List<Product> products = (List<Product>) productService.listAll();
+
+        users.forEach(user ->{
+            Order order = new Order();
+            order.setCustomer(user.getCustomer());
+            order.setOrderStatus(OrderStatus.SHIPPED);
+
+            products.forEach(product -> {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setProduct(product);
+                orderDetail.setQuantity(1);
+                order.addToOrderDetails(orderDetail);
+            });
+        });
+    }
+
+    private void loadCarts() {
+        List<User> users = (List<User>) userService.listAll();
+        List<Product> products = (List<Product>) productService.listAll();
+
+        users.forEach(user -> {
+            user.setCart(new Cart());
+            CartDetail cartDetail = new CartDetail();
+            cartDetail.setProduct(products.get(0));
+            cartDetail.setQuantity(2);
+            user.getCart().addCartDetail(cartDetail);
+            userService.saveOrUpdate(user);
+        });
     }
 
     /**
