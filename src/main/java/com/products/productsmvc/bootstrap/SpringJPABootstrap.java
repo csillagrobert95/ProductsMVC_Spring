@@ -59,6 +59,9 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 
     }
 
+    /**
+     * Loads initial order history for each user.
+     */
     private void loadOrderHistory() {
         List<User> users = (List<User>) userService.listAll();
         List<Product> products = (List<Product>) productService.listAll();
@@ -77,6 +80,9 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
         });
     }
 
+    /**
+     * Loads initial cart data for each user.
+     */
     private void loadCarts() {
         List<User> users = (List<User>) userService.listAll();
         List<Product> products = (List<Product>) productService.listAll();
@@ -94,7 +100,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     /**
      * Loads initial product data.
      */
-    public void loadProducts(){
+    private void loadProducts(){
         Product product1 = new Product();
         product1.setDescription("Product 1");
         product1.setPrice(new BigDecimal("12.99"));
@@ -129,7 +135,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     /**
      * Loads initial user and customer data.
      */
-    public void loadUsersAndCustomers(){
+    private void loadUsersAndCustomers(){
         User user1 = new User();
         user1.setUsername("mweston");
         user1.setPassword("password");
