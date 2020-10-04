@@ -73,7 +73,6 @@ public class AbstractDomainClass implements DomainObject {
         return lastUpdated;
     }
 
-
     /**
      * Update the timestamps on saving to the database.
      */
