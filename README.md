@@ -1,5 +1,6 @@
 # ProductsMVC_Spring
-A simple Spring MVC application for realizing operations on products and displaying them
+A simple Spring MVC application for realizing CRUD operations on products, users and customers as well as displaying them in the browser using Thymeleaf.
+The core of this project was developed while following [this](https://www.udemy.com/course/spring-core/) course on Spring Framework and completing the coding challenges.
 
 ## Getting Started
 
@@ -22,6 +23,9 @@ These instructions will get you a copy of the project up and running on your loc
 * Spring Boot
 * Thymeleaf
 * Bootstrap
+* JPA
+* Hibernate
+* H2
 * JUnit 4
 * Mockito
 * Spring MVC Test
